@@ -29,8 +29,12 @@ namespace SteamBot
             //New trade
             TradeOffer nTrade = Bot.tradeUser.newTrade(OtherSID);
 
-            var partner_inv = nTrade.SInventory.Initialize(nTrade.partner, 443, 2).getItems();
-            var my_inv = nTrade.SInventory.Initialize(Bot.SteamUser.SteamID, 443, 2).getItems();
+            //440 = TF2
+            //753 = Steam
+            //Inventory cannot be private
+
+            var partner_inv = nTrade.SInventory.Initialize(nTrade.partner, 440, 2).getItems();
+            var my_inv = nTrade.SInventory.Initialize(Bot.SteamUser.SteamID, 440, 2).getItems();
 
             //Get trade
             var trades = Bot.tradeUser.getTrades(Bot.SteamUser.SteamID);
@@ -48,12 +52,6 @@ namespace SteamBot
                 nTrade.tradeStatus.them.addItem(443, 2, item.id, item.amount);
             }
             nTrade.update("Updated!");
-
-            //Accept received trade
-            gTrade.accept();
-
-            //Decline received trade
-            gTrade.decline();
         }
 
         public override bool OnTradeRequest()
